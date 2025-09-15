@@ -1,0 +1,22 @@
+baseURL: 'https://k0s.luc.run/'
+title: 'K0s workshop'
+theme: 
+ - github.com/imfing/hextra
+
+menu:
+  main:
+    - name: Intro
+      pageRef: /
+      weight: 1
+    - name: k0s
+      pageRef: /k0s
+      weight: 2
+    - name: k0sctl
+      pageRef: /k0sctl
+      weight: 3
+    - name: k0smotron
+      pageRef: /k0smotron
+      weight: 4
+    - name: k0rdent
+      pageRef: /k0rdent
+      weight: 5
