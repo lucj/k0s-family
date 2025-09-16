@@ -3,20 +3,46 @@ title: 'K0s workshop'
 theme: 
  - github.com/imfing/hextra
 
+markup:
+  # allow raw html
+  goldmark:
+    renderer:
+      unsafe: true
+
+  # enable hextra syntax highlight
+  highlight:
+    noClasses: false
+
 menu:
   main:
-    - name: Intro
-      pageRef: /
-      weight: 1
     - name: k0s
       pageRef: /k0s
-      weight: 2
+      weight: 1
     - name: k0sctl
       pageRef: /k0sctl
-      weight: 3
+      weight: 2
     - name: k0smotron
       pageRef: /k0smotron
-      weight: 4
+      weight: 3
     - name: k0rdent
       pageRef: /k0rdent
+      weight: 4
+    - name: Search
       weight: 5
+      params:
+        type: search
+
+params:
+  navbar:
+    displayTitle: true
+    displayLogo: true
+    logo:
+      width: 20
+      height: 20
+
+  footer:
+    displayCopyright: false
+    displayPoweredBy: false
+
+  page:
+    width: wide
