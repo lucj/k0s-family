@@ -1,3 +1,8 @@
+---
+title: Multi-nodes cluster
+weight: 5
+---
+
 In this part, you will create several virtual machines and run a multi node k0s on that ones
 
 ## Pre-requisites

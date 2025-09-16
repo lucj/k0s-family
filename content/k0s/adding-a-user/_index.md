@@ -1,3 +1,8 @@
+---
+title: Adding a user
+weight: 3
+---
+
 In this tutorial, you will give a new user access to your cluster.
 
 ## Prerequisite

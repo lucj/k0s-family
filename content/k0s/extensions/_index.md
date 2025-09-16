@@ -1,3 +1,8 @@
+---
+title: Extensions
+weight: 4
+---
+
 Extensions allows to specify Helm charts or yaml manifests to be deployed during the creation or update of a cluster.
 We will illustrate the extensions capability on a single node cluster created with the k0s binary. 
 
