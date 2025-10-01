@@ -1,9 +1,22 @@
 ---
-title: Discover the k0s family
-weight: 1
+title: 'Discover the k0s family'
 ---
-  
-Welcome to this hands-on workshop where you’ll discover the k0s family which addresses the challenges of managing multi-cluster Kubernetes. At the foundation of this growing ecosystem is [k0s](https://k0sproject.io), a lightweight Kubernetes distribution, which power lies in the tools implemented around it. With k0sctl, you can easily manage cluster lifecycles. k0smotron enables Kubernetes control planes to run inside Pods. And k0rdent provides the building blocks for Kubernetes-based internal developer platforms.  
+
+<br/>
+
+Welcome to this hands-on workshop where you’ll discover the k0s family which addresses the challenges of managing multi-cluster Kubernetes. At the foundation of this growing ecosystem is [k0s](https://k0sproject.io), a lightweight Kubernetes distribution, which power lies in the tools implemented around it. With k0sctl, you can easily manage cluster lifecycles. k0smotron enables Kubernetes control planes to run inside Pods. And k0rdent provides the building blocks for Kubernetes-based internal developer platforms.
+
+## Requirements
+
+In order to follow this workshop, you'll need to have the following items installed on your local machine.
+
+- [Multipass](https://multipass.run): Multipass is a very handy tool which allows to create Ubuntu virtual machine in a very easy way. It is available on macOS, Windows and Linux.
+
+- [kubectl](https://kubernetes.io/docs/tasks/tools/#kubectl) the command line tool to communicate with a Kubernetes cluster
+
+## Workshop's layout
+
+To get the most out of the workshop, please follow the section below in order, starting with the [introduction to k0s](./k0s).
 
 {{< cards >}}
     {{< card    link="./k0s" 
@@ -27,3 +40,6 @@ Welcome to this hands-on workshop where you’ll discover the k0s family which a
                 icon=""
     >}}
 {{< /cards >}}
+
+<br/>
+

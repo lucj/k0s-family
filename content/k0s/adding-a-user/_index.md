@@ -1,6 +1,6 @@
 ---
 title: Adding a user
-weight: 3
+weight: 4
 ---
 
 In this tutorial, you will give a new user access to your cluster.
@@ -177,3 +177,11 @@ pod/db created
 ```
 
 The new user can now manipulate Pods and Services through the roles that have been bound to his profile.
+
+
+{{< nav-buttons 
+    prev_link="../extensions"
+    prev_text="Extensions"
+    next_link="../change-cni"
+    next_text="Change CNI"
+>}}

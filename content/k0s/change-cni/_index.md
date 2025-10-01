@@ -1,19 +1,9 @@
 ---
-title: Configuration
-weight: 2
+title: Change CNI
+weight: 5
 ---
 
-In this part, you will change the configuration of our one-node cluster, using Cilium CNI instead of the default KubeRouter.
-
-## Default k0s configuration
-
-When running a k0s cluster, the default configuration options are used, but we can modify it to match specific needs. The following command get the default configuration and save it in `/etc/k0s/k0s.yaml`.
-
-```bash
-k0s config create | sudo tee /etc/k0s/k0s.yaml
-```
-
-The output is similar to the following one:
+Change the configuration file so it disables `kube-proxy` and specifies a custom CNI provider.
 
 ```yaml
 apiVersion: k0s.k0sproject.io/v1beta1
@@ -56,6 +46,7 @@ spec:
     dualStack:
       enabled: false
     kubeProxy:
+      disabled: true               # Disabling kubeproxy
       iptables:
         minSyncPeriod: 0s
         syncPeriod: 0s
@@ -81,7 +72,7 @@ spec:
         konnectivityServerBindPort: 7132
       type: EnvoyProxy
     podCIDR: 10.244.0.0/16
-    provider: kuberouter
+    provider: custom               # Using a custom CNI provider
     serviceCIDR: 10.96.0.0/12
   scheduler: {}
   storage:
@@ -95,51 +86,22 @@ spec:
     enabled: false
 ```
 
-## Update the configuration
-
-For demo purposes, change the configuration file by removing the IPv6 addresses from the `sans` property.
-
-```yaml
-...
-spec:
-  api:
-    address: 192.168.64.22
-    ca:
-      certificatesExpireAfter: 8760h0m0s
-      expiresAfter: 87600h0m0s
-    k0sApiPort: 9443
-    port: 6443
-    sans:
-    - 192.168.64.22          # <- only leaves IPv4 entries
-    - 10.244.0.1
-...  
-```
-
-In order to take into account the configuration file, we first edit the systemd unit file providing the path towards this file.
-
 ```bash
 sudo systemctl edit --full k0scontroller
 ```
-
-Change the unit file from this content.
 
 ```
 [Service]
 StartLimitInterval=5
 StartLimitBurst=10
 ExecStart=/usr/local/bin/k0s controller --single=true
-```
 
-to this one which includes `k0s.yaml` configuration file.
 
-```
 [Service]
 StartLimitInterval=5
 StartLimitBurst=10
 ExecStart=/usr/local/bin/k0s controller --single=true -c /etc/k0s/k0s.yaml
 ```
-
-Next, restart the daemon.
 
 ```bash
 sudo systemctl daemon-reload
@@ -149,11 +111,24 @@ sudo systemctl daemon-reload
 sudo systemctl restart k0scontroller
 ```
 
-In a next section, we'll get one step further updating the configuration to change the default CNI.
+Cilium needs a kubeconfigfile
+
+```bash
+sudo chown $(id -u):$(id -g) /var/lib/k0s/pki/admin.conf
+export KUBECONFIG=/var/lib/k0s/pki/admin.conf
+```
+
+```bash
+OS="$(uname | tr '[:upper:]' '[:lower:]')"
+ARCH="$(uname -m | sed -e 's/x86_64/amd64/' -e 's/\(arm\)\(64\)\?.*/\1\2/' -e 's/aarch64$/arm64/')"
+curl -L --remote-name-all https://github.com/cilium/cilium-cli/releases/latest/download/cilium-$OS-$ARCH.tar.gz{,.sha256sum}
+sudo tar xzvfC cilium-$OS-$ARCH.tar.gz /usr/local/bin
+cilium install
+```
 
 {{< nav-buttons 
-    prev_link="../single-node"
-    prev_text="Single Node"
-    next_link="../extensions"
-    next_text="Extensions"
+    prev_link="../adding-a-user"
+    prev_text="Adding a user"
+    next_link="../multi-nodes"
+    next_text="Multi Nodes"
 >}}

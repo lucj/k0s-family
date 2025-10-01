@@ -1,10 +1,9 @@
 ---
 title: Extensions
-weight: 4
+weight: 3
 ---
 
-Extensions allows to specify Helm charts or yaml manifests to be deployed during the creation or update of a cluster.
-We will illustrate the extensions capability on a single node cluster created with the k0s binary. 
+Extensions allows to specify Helm charts or yaml manifests to be deployed during the creation or update of a cluster. We will illustrate the extensions capability on a single node cluster created with the k0s binary. 
 
 ## Pre-requisites
 
@@ -233,10 +232,9 @@ After a few tens of seconds, make sure the Deployment has been correctly created
 ubuntu@k0s-1:~$ sudo k0s kubectl get deploy,po -l app=db
 ```
 
-## Cleanup
-
-You can use the following command to remove the VM:
-
-```
-$ multipass delete -p k0s-1
-```
+{{< nav-buttons 
+    prev_link="../configuration"
+    prev_text="Configuration"
+    next_link="../adding-a-user"
+    next_text="Adding a user"
+>}}

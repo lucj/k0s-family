@@ -3,71 +3,64 @@ title: Single node
 weight: 1
 ---
 
-In this part, you will create a VM and run k0s on that one.
-
-## Pre-requisites
-
-- [Multipass](https://multipass.run) is a very handy tool which allows to creating Ubuntu virtual machine in a very easy way. It is available on macOS, Windows and Linux.
-
-- [kubectl](https://kubernetes.io/docs/tasks/tools/#kubectl) is the binary used to communicate with the API Server of a Kubernetes cluster. It can be used to manage the cluster and the workloads that are running inside.
+In this part, you will create a VM and run a single-node k0s on that one.
 
 ## Create the virtual machine
 
-First run the following command to launch a VM named *k0s*:
+First, run the following command to launch a VM named *k0s*:
 
 ```bash
-multipass launch -n k0s --disk 10G
+multipass launch -n k0s-1 --disk 10G --cpus 2 --memory 2G
 ```
 
-Then run a shell on that VM. This will use the `ubuntu` user.
+Next, run a shell on that VM.
+
+{{< callout type="info" >}}
+This will use the `ubuntu` user
+{{< /callout >}}
 
 ```bash
-multipass shell k0s
+multipass shell k0s-1
 ```
 
-## Get the k0s binary
+## Create the cluster
 
-First, from the shell, get the latest release of k0s:
+First, from this shell, get the latest release of k0s.
 
 ```bash
 curl -sSf https://get.k0s.sh | sudo sh
 ```
 
-After a few tens of seconds the k0s binary will be available in `/usr/local/bin`. Check the current version.
+After a few tens of seconds, the k0s binary will be available in `/usr/local/bin`. Check the current version.
 
 ```bash
 k0s version
 ```
 
-This command returns a version like `v1.33.4+k0s.0` (your version could be slightly different though, depending on when you follow this workshop).
+This command returns a version like `v1.33.4+k0s.0` (your version could be slightly different though, depending on when you're following this workshop).
 
-## Install the k0s controller
-
-Once the k0s binary is downloaded, we can get a single node k0s cluster.
+Next, use the following command to create a systemd unit file.
 
 ```bash
 sudo k0s install controller --single
 ```
 
-A systemd unit file has been created, but the controller is not started yet.
+{{< callout type="info" >}}
+When installing k0s we can provide the following options:
 
-```bash
-$ sudo systemctl status k0scontroller
-○ k0scontroller.service - k0s - Zero Friction Kubernetes
-     Loaded: loaded (/etc/systemd/system/k0scontroller.service; enabled; preset: enabled)
-     Active: inactive (dead)
-       Docs: https://docs.k0sproject.io
-```
+- `--single` allows to configure the instance as both a control-plane and a worker Node
+- `--worker` allows to configure the instance as a worker Node
 
-## Start the cluster
+If none of these option is provided, the instance will act as a control-plane only Node. 
+{{< /callout >}}
 
-First, start the cluster:
+Next, start the cluster.
 
 ```bash
 sudo k0s start
 ```
 
-Next, after a few tens of seconds, verify it is running properly.
+Then, after a few tens of seconds, verify the cluster is running properly.
 
 ```bash
 sudo k0s status
@@ -85,7 +78,7 @@ Kube-api probing successful: true
 Kube-api probing last error: 
 ```
 
-It takes a few tens of seconds for the cluster to be up and running. After this slight delay, you can verify that the  k0s controller is started in systemd.
+It takes a few tens of seconds for the cluster to be up and running. After this slight delay, you can verify that the k0s controller is started in systemd.
 
 ```bash
 $ sudo systemctl status k0scontroller
@@ -101,45 +94,28 @@ $ sudo systemctl status k0scontroller
      ...
 ```
 
-{{< callout icon="" >}}
-
-In the steps above, you have:
-- created a VM with multipass
-- started a one-node k0s cluster inside
-
-An alternative method to perform all those steps is to use the following cloud-config file when running the k0s Multipass VM.
-
-```yaml {filename="cloud-config.yaml"}
-#cloud-config
-
-runcmd:
-  - curl -sSLf https://get.k0s.sh | sudo sh
-  - sudo k0s install controller --single
-  - sudo k0s start
-```
-
-```bash
-multipass launch -n k0s --cloud-init cloud-config.yaml
-```
-{{< /callout >}}
-
 ## Communication from an external machine
 
-As k0s comes with its own *kubectl* subcommand, you can communicate with the API Server directly from the node (the `k0s` VM you have created):
+As k0s comes with its own *kubectl* subcommand, you can communicate with the API Server directly from the Node (the `k0s-1` VM you have created):
 
 ```bash
 $ sudo k0s kubectl get node
 NAME   STATUS   ROLES           AGE   VERSION
-k0s    Ready    control-plane   11m   v1.33.4+k0s
+k0s-1  Ready    control-plane   11m   v1.33.4+k0s
 ```
 
-Usually do not ssh into a cluster's Node to run kubectl commands, but run these commands from an admin machine. In order to do so, you first need to retrieve the kubeconfig file generated during the cluster creation (located in */var/lib/k0s/pki/admin.conf*) and save it in a local file named `k0s.kubeconfig`.
+Usually do not SSH into a cluster's Node to run kubectl commands, but run these commands from an admin machine. In order to do so, run the following command from your local machine. It retrieves the kubeconfig file generated during the cluster creation (`/var/lib/k0s/pki/admin.conf`) and saves it in a local file named `k0s.kubeconfig`.
 
 ```bash
-sudo cat /var/lib/k0s/pki/admin.conf
+multipass exec k0s-1 -- sudo cat /var/lib/k0s/pki/admin.conf > k0s.kubeconfig
 ```
 
-As this kubeconfig references an API Server on localhost, you need to get the IP address of the `k0s` VM (which you can get with `multipass info k0s`) and use it instead of `localhost`.
+Next, replace `localhost` with the actual IP address of the Multipass VM.
+
+```bash
+K0S1_IP=$(multipass info k0s-1 | grep IP | awk '{print $2}')
+sed -i'' "s/localhost/$K0S1_IP/" k0s.kubeconfig
+```
 
 Then, configure your local *kubectl*, so it uses this modified kubeconfig file.
 
@@ -152,7 +128,7 @@ You can now communicate with the newly created cluster from your machine. List t
 ```bash
 $ kubectl get no
 NAME   STATUS   ROLES           AGE   VERSION
-k0s    Ready    control-plane   16m   v1.33.4+k0s
+k0s-1  Ready    control-plane   16m   v1.33.4+k0s
 ```
 
 ## Testing the whole thing
@@ -215,21 +191,13 @@ service/kubernetes   ClusterIP   10.96.0.1        <none>        443/TCP        6
 service/nginx        NodePort    10.110.235.193   <none>        80:30000/TCP   6s
 ```
 
-Using `k0s` IP address (`192.168.64.21` in this example) and the NodePort 3000, we can access nginx.
+Using `k0s-1` IP address (`192.168.64.22` in this example) and the NodePort 3000, we can access nginx.
 
 ![nginx](./images/nginx.png)
 
-## Cleanup
+In the next part, we'll modify the default configuration.
 
-Remove the Deployment and Service:
-
-```bash
-kubectl delete deploy/nginx svc/nginx
-```
-
-In order to remove k0s from the VM (without deleting the VM) you need to stop k0s, reset it, and reboot the VM.
-
-```bash
-sudo k0s stop
-sudo k0s reset
-```
+{{< nav-buttons 
+    next_link="../configuration"
+    next_text="Configuration"
+>}}

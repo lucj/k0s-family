@@ -1,150 +1,145 @@
 ---
 title: Multi-nodes cluster
-weight: 5
+weight: 6
 ---
 
-In this part, you will create several virtual machines and run a multi node k0s on that ones
-
-## Pre-requisites
-
-[Multipass](https://multipass.run): Multipass is a very handy tool which allows to create Ubuntu virtual machine in a very easy way. It is available on macOS, Windows and Linux.
+In this part, you will create a multi-nodes cluster.
 
 ## Create the virtual machines
 
-First run the following command to launch the VMs named *node-1*, *node-2* and *node-3*:
+First, run the following command to launch VMs named `k0s-1`, `k0s-2` and `k0s-3`.
 
-```
-for i in 1 2 3; do 
-  multipass launch -n node-$i
-done
+```bash
+multipass launch -n k0s-1 --disk 10G --cpus 2 --memory 2G
+multipass launch -n k0s-2 --disk 10G --cpus 2 --memory 2G
+multipass launch -n k0s-3 --disk 10G --cpus 2 --memory 2G
 ```
 
 Next list the VMs and make sure they are running fine:
 
-```
+```bash
 multipass list
 ```
 
-You should get an output similar to the following one:
+You should get an output similar to the following one (the IP addresses you get would be different though).
 
-```
+```bash
 Name                    State             IPv4             Image
-node-1                  Running           192.168.64.48    Ubuntu 20.04 LTS
-node-2                  Running           192.168.64.49    Ubuntu 20.04 LTS
-node-3                  Running           192.168.64.50    Ubuntu 20.04 LTS
+k0s-1                   Running           192.168.64.27    Ubuntu 24.04 LTS
+k0s-2                   Running           192.168.64.25    Ubuntu 24.04 LTS
+k0s-3                   Running           192.168.64.26    Ubuntu 24.04 LTS
 ```
 
-## Get the k0s binary
+## Download k0s binary in each VMs
 
-First, you need to get the *k0s$ binary on each VM:
-
-```
-for i in 1 2 3; do 
-  multipass exec node-$i -- bash -c "curl -sSLf get.k0s.sh | sudo sh"
+```bash
+for i in 1 2 3; do
+  multipass exec k0s-$i -- /bin/sh -c "curl -sSf https://get.k0s.sh | sudo sh"
 done
 ```
 
 ## Init the cluster
 
-First install the k0s controller as a systemd unit file on *node-1*:
+First, run a shell in `k0s-1`.
 
-```
-multipass exec node-1 -- sudo k0s install controller
-```
-
-Next start the cluster:
-
-```
-multipass exec node-1 -- sudo k0s start
+```bash
+multipass shell k0s-1
 ```
 
-Next make sure it is running fine:
+Next, install k0s controller and start it.
 
-```
-multipass exec node-1 -- sudo systemctl status k0scontroller
-```
-
-## Accessing the cluster
-
-As you have done in the [single_node](./single_node_multipass.md) tutorial, you need to:
-
-- retrieve the kubeconfig file generated during the cluster installation
-
-```
-multipass exec node-1 -- sudo cat /var/lib/k0s/pki/admin.conf > kubeconfig
+```bash
+sudo k0s install controller
+sudo k0s start
 ```
 
-- modify that file to use the IP address of *node-1* instead of *localhost*
+{{< callout type="info" >}}
+We don't use the `--single` option as this instance will only act as a control-plane Node.
+{{< /callout >}}
 
-```
-NODE1_IP=$(multipass info node-1 | grep IP | awk '{print $2}')
-sed -i '' "s/localhost/$NODE1_IP/" kubeconfig
-```
+You can now exit the shell from `k0s-1`.
 
-- configure your local *kubectl* to use that file
+## Adding worker Nodes
 
-```
-export KUBECONFIG=$PWD/kubeconfig
-```
+In order to add worker Nodes, we need to generate a token from the control plane and use this token to install k0s on the worker Nodes.
 
-You can now communicate with your cluster from your local machine:
+First, generate the token as follows. This will create the file `worker_token` in the current folder.
 
-```
-kubectl get nodes
+```bash
+multipass exec k0s-1 -- sudo k0s token create --role=worker > ./worker_token
 ```
 
-Note: the above list is empty... so it appears that your cluster does not have any node. That is not exactly true as only the worker nodes should be listed (those will be added in the next step), the controller node are just hidden. The isolation between the control plane components and the data plane ones is one great feature of k0s.
+{{< callout type="info" >}}
+The `worker` role specified in the command indicates that the token will be used to add a worker (default value). We could also use a `controller` role to add additional controllers in the cluster.
+{{< /callout >}}
 
-In the next step you will add worker nodes (nodes that will be used to run workload) in the cluster.
+Next, copy that token into *k0s-2* and *k0s-3*.
 
-## Adding some worker nodes
-
-First, you need to get a token from the control plane node:
-
-```
-multipass exec node-1 -- sudo k0s token create --role=worker > ./worker_token
-```
-
-Note: the *worker* role specified in the command indicates that the token will be used to add a worker (that is the default value). We could also use a *controller* role to add additional controllers in the cluster.
-
-Next copy that token into *node-2* and *node-3*
-
-```
-multipass transfer ./worker_token node-2:/tmp/worker_token
-multipass transfer ./worker_token node-3:/tmp/worker_token
+```bash
+multipass transfer ./worker_token k0s-2:/tmp/worker_token
+multipass transfer ./worker_token k0s-3:/tmp/worker_token
 ```
 
-Next install k0s onto *node-2* and *node-3*:
+Next, install k0s onto *k0s-2* and *k0s-3* VMs.
 
-```
-multipass exec node-2 -- sudo k0s install worker --token-file /tmp/worker_token
-multipass exec node-3 -- sudo k0s install worker --token-file /tmp/worker_token
-```
-
-Then start k0s on both worker nodes:
-
-```
-multipass exec node-2 -- sudo k0s start
-multipass exec node-3 -- sudo k0s start
+```bash
+multipass exec k0s-2 -- sudo k0s install worker --token-file /tmp/worker_token
+multipass exec k0s-3 -- sudo k0s install worker --token-file /tmp/worker_token
 ```
 
-Listing the cluster's nodes one more time, you should now be able to see the newly added workers:
+Then, start k0s on both worker nodes:
 
+```bash
+multipass exec k0s-2 -- sudo k0s start
+multipass exec k0s-3 -- sudo k0s start
 ```
+
+## Get a kubeconfig file
+
+```bash
+multipass exec k0s-1 -- sudo cat /var/lib/k0s/pki/admin.conf > k0s.kubeconfig
+```
+
+Next, replace `localhost` with the actual IP address of the Multipass VM.
+
+```bash
+K0S1_IP=$(multipass info k0s-1 | grep IP | awk '{print $2}')
+sed -i'' "s/localhost/$K0S1_IP/" k0s.kubeconfig
+```
+
+Then, configure your local *kubectl*, so it uses this modified kubeconfig file.
+
+```bash
+export KUBECONFIG=$PWD/k0s.kubeconfig
+```
+
+Listing the cluster's Nodes you should get a list similar to the one below.
+
+```bash
 $ kubectl get nodes
-NAME     STATUS     ROLES    AGE   VERSION
-node-2   Ready      <none>   52s   v1.23.5+k0s
-node-3   Ready      <none>   27s   v1.23.5+k0s
+NAME    STATUS   ROLES    AGE   VERSION
+k0s-2   Ready    <none>   92s   v1.33.4+k0s
+k0s-3   Ready    <none>   92s   v1.33.4+k0s
 ```
 
-Note: it can take a few tens of seconds for the nodes to appear in Ready status
-
-As you have seen, creating a multi nodes cluster is very simple with k0s. In a next tutorial you will use *k0sctl*, a k0s's companion tool that makes this process even easier.
+{{< callout type="info" >}}
+As `k0s-1` was configured as a control-plane only Node, it does not appear in this list which only shows the worker Nodes.
+{{< /callout >}}
 
 ## Cleanup
 
-The following command delete the 3 VMs used in this tutorial
+You can now delete the VMs used in this section.
 
+```bash
+multipass delete -p k0s-1 k0s-2 k0s-3
 ```
-multipass delete -p node-1 node-2 node-3
-```
+
+In the next section, you will use `k0sctl`, a k0s's companion tool that simplifies the management of multi-node clusters.
+
+
+{{< nav-buttons 
+    prev_link="../change-cni"
+    prev_text="Change CNI"
+    next_link="../cleanup"
+    next_text="Cleanup"
+>}}

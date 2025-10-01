@@ -1,0 +1,27 @@
+{{/* layouts/shortcodes/nav-buttons.html */}}
+{{ $prev_link := .Get "prev_link" }}
+{{ $prev_text := .Get "prev_text" | default "Previous Article" }}
+{{ $next_link := .Get "next_link" }}
+{{ $next_text := .Get "next_text" | default "Next Article" }}
+
+<hr style="margin: 20px auto; width: 75%;"/>
+
+<div class="nav-buttons-container" style="display: flex; justify-content: center; gap: 40px; margin: 20px 0;">
+    {{ if $prev_link }}
+      <div>
+      ← <a href="{{ $prev_link }}" 
+           class="turbo-nav-link text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300"
+           data-turbo-frame="main-content"
+           data-turbo-action="replace">{{ $prev_text }}</a>
+      </div>
+    {{ end }}
+    
+    {{ if $next_link }}
+      <div>
+        <a href="{{ $next_link }}" 
+           class="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300"
+           data-turbo-frame="main-content"
+           data-turbo-action="replace">{{ $next_text }}</a> →
+      </div>
+    {{ end }}
+</div>
