@@ -54,7 +54,7 @@ sudo k0s start
 ```
 
 {{< callout type="info" >}}
-We don't use the `--single` option as this instance will only act as a control-plane Node.
+We don't use the `--single` option as this instance will only act as a control plane Node.
 {{< /callout >}}
 
 You can now exit the shell from `k0s-1`.
@@ -87,7 +87,7 @@ multipass exec k0s-2 -- sudo k0s install worker --token-file /tmp/worker_token
 multipass exec k0s-3 -- sudo k0s install worker --token-file /tmp/worker_token
 ```
 
-Then, start k0s on both worker nodes:
+Then, start k0s on both worker Nodes:
 
 ```bash
 multipass exec k0s-2 -- sudo k0s start
@@ -123,7 +123,7 @@ k0s-3   Ready    <none>   92s   v1.33.4+k0s
 ```
 
 {{< callout type="info" >}}
-As `k0s-1` was configured as a control-plane only Node, it does not appear in this list which only shows the worker Nodes.
+As `k0s-1` was configured as a control plane only Node, it does not appear in this list which only shows the worker Nodes.
 {{< /callout >}}
 
 ## Cleanup
@@ -138,8 +138,8 @@ In the next section, you will use `k0sctl`, a k0s's companion tool that simplifi
 
 
 {{< nav-buttons 
-    prev_link="../change-cni"
-    prev_text="Change CNI"
+    prev_link="../adding-a-user"
+    prev_text="Adding a user"
     next_link="../cleanup"
     next_text="Cleanup"
 >}}

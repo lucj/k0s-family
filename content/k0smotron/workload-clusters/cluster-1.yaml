@@ -1,0 +1,11 @@
+apiVersion: k0smotron.io/v1beta1
+kind: Cluster
+metadata:
+  name: cluster-1
+spec:
+  version: v1.34.1-k0s.0
+  replicas: 1
+  service:
+    type: NodePort
+    apiPort: 30443
+    konnectivityPort: 30132

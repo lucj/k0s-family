@@ -185,7 +185,9 @@ service/ghost   ClusterIP   10.100.22.8   <none>        2368/TCP   37s
 
 ## Restore the backup
 
-Use the following command to restore the previous backup.
+In order to restore the backup, you first need to create a new cluster. The backup cannot be restored in the same cluster.
+
+Once you have created a new cluster, use the following command to restore the previous backup.
 
 {{< callout type="info" >}}
 Use the path towards the tar.gz file provided at the end of the backup step
@@ -202,9 +204,6 @@ $ k get po
 NAME    READY   STATUS    RESTARTS   AGE
 ghost   1/1     Running   0          8m33s
 ```
-
-{{< callout type="error" >}}
-Restore process does not seem to be working :({{< /callout >}}
 
 {{< nav-buttons 
     prev_link="../extensions"

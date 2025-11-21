@@ -37,7 +37,7 @@ Use the following command to create a new kubeconfig for that particular user:
 $ multipass exec node-1 -- sudo k0s kubeconfig create dave --groups development > dave.kubeconfig
 ```
 
-:fire: if you use a multi-node cluster, make sure to run the above command from a controller node. Indeed, the worker nodes do not have the key required to approve a Certificate Signin Request.
+:fire: if you use a multi-node cluster, make sure to run the above command from a controller node. Indeed, the worker Nodes do not have the key required to approve a Certificate Signin Request.
 
 To get a better understanding, extract the client’s certificate from this kubeconfig file and decode it from its base64 representation:
 
@@ -182,6 +182,6 @@ The new user can now manipulate Pods and Services through the roles that have be
 {{< nav-buttons 
     prev_link="../extensions"
     prev_text="Extensions"
-    next_link="../change-cni"
-    next_text="Change CNI"
+    next_link="../multi-nodes"
+    next_text="Multi-nodes"
 >}}

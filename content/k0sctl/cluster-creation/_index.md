@@ -160,7 +160,7 @@ spec:
 </details>
 
 Next, modify that file, so it uses the VMs created previously. You will define:
-- `k0s-1` as a control-plane Node
+- `k0s-1` as a control plane Node
 - `k0s-2` and `k0s-3` as worker Nodes
 
 Also add the k0s version, we'll use v1.33.1+k0s.0 in this example.

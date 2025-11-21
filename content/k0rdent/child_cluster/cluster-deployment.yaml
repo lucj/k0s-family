@@ -1,0 +1,14 @@
+apiVersion: k0rdent.mirantis.com/v1beta1
+kind: ClusterDeployment
+metadata:
+  name: docker-demo
+  namespace: kcm-system
+spec:
+  template: docker-hosted-cp-1-0-4
+  credential: docker-default           # must match metadata.name of the Credential above
+  config:
+    kubernetesVersion: v1.34.1-k0s.0
+    controlPlane:
+      replicas: 1
+    worker:
+      replicas: 1

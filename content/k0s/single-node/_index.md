@@ -3,7 +3,7 @@ title: Single node
 weight: 1
 ---
 
-In this part, you will create a VM and run a single-node k0s on that one.
+In this part, you will create a VM and run a single-node k0s on it.
 
 ## Create the virtual machine
 
@@ -48,10 +48,10 @@ sudo k0s install controller --single
 {{< callout type="info" >}}
 When installing k0s we can provide the following options:
 
-- `--single` allows to configure the instance as both a control-plane and a worker Node
+- `--single` allows to configure the instance as both a control plane and a worker Node
 - `--worker` allows to configure the instance as a worker Node
 
-If none of these option is provided, the instance will act as a control-plane only Node. 
+If none of these option is provided, the instance will act as a control plane only Node. 
 {{< /callout >}}
 
 Next, start the cluster.

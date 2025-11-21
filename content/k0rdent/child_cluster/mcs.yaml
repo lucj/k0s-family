@@ -1,0 +1,14 @@
+apiVersion: k0rdent.mirantis.com/v1beta1
+kind: MultiClusterService
+metadata:
+  name: argocd-demo
+  namespace: kcm-system
+spec:
+  clusterSelector:
+    matchLabels:
+      helm.toolkit.fluxcd.io/name: docker-demo
+  serviceSpec:
+    services:
+      - name: argocd-demo-service
+        namespace: argocd
+        template: argo-cd-8-6-1
