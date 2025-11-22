@@ -5,8 +5,7 @@ title: 'Discover the k0s family'
 {{< callout type="important">}}
 This content is a work in progress, it's not fully ready yet.
 
-Disclaimer: This content is created independently for educational purposes and is not affiliated with, 
-  endorsed by, or sponsored by Mirantis (the creator of k0s).
+Disclaimer: this content is created for educational purposes, independently of the [k0s](https://k0sproject.io) CNCF project.
 {{< /callout >}}
 
 <br/>
