@@ -42,9 +42,5 @@ params:
       width: 20
       height: 20
 
-  footer:
-    displayCopyright: false
-    displayPoweredBy: false
-
   page:
     width: wide
