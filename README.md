@@ -5,6 +5,6 @@ This content is a self-paced workshop introducing the components of the `k0s fam
 - [k0smotron](https://k0smotron.io/) enables Kubernetes control planes to run inside Pods
 - [k0rdent](https://kordent.io) provides the building blocks for Kubernetes-based internal developer platforms
 
-:warning: This is a WIP, not fully ready yet.
-
 You can browse the Hugo-based content at [https://k0s.luc.run](https://k0s.luc.run)
+
+:warning: This is still a work in progress, it's not fully ready yet.
