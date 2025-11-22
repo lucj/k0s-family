@@ -1,5 +1,4 @@
-baseURL: 'https://k0s.luc.run/'
-title: 'K0s workshop'
+title: 'K0s family'
 theme: 
  - github.com/imfing/hextra
 
@@ -37,6 +36,9 @@ params:
     displayTitle: true
     displayLogo: true
     logo:
+      path: images/k0s.png
+      dark: images/k0s.png
+      link: /
       width: 20
       height: 20
 
