@@ -31,7 +31,7 @@ jobs:
 
       - name: Build
         run: |
-          hugo --minify --baseURL "https://lucj.github.io/k0s-family/"
+          hugo --minify
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
