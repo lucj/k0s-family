@@ -3,7 +3,10 @@ title: 'Discover the k0s family'
 ---
 
 {{< callout type="important">}}
-This is a WIP, not fully ready yet.
+This content is a work in progress, it's not fully ready yet.
+
+Disclaimer: This content is created independently for educational purposes and is not affiliated with, 
+  endorsed by, or sponsored by Mirantis (the creator of k0s).
 {{< /callout >}}
 
 <br/>
