@@ -32,6 +32,11 @@ menu:
         type: search
 
 params:
+  favicon:
+    icon: favicon.ico
+    apple_touch_icon: apple-touch-icon.png
+    icon16: favicon-16x16.png
+    icon32: favicon-32x32.png
   navbar:
     displayTitle: true
     displayLogo: true
@@ -41,6 +46,8 @@ params:
       link: /
       width: 20
       height: 20
-
+  footer:
+    displayCopyright: false
+    displayPoweredBy: false
   page:
     width: wide
