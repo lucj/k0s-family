@@ -10,19 +10,19 @@ Disclaimer: this content is created for educational purposes, it's independent o
 
 <br/>
 
-Welcome to this hands-on workshop where you’ll discover the k0s family which addresses the challenges of managing multi-cluster Kubernetes. At the foundation of this growing ecosystem is [k0s](https://k0sproject.io), a lightweight Kubernetes distribution, which power lies in the tools implemented around it. With [k0sctl](https://github.com/k0sproject/k0sctl), you can easily manage cluster lifecycles. [k0smotron](https://k0smotron.io) enables Kubernetes control planes to run inside Pods. And [k0rdent](https://k0rdent.io) provides the building blocks for Kubernetes-based internal developer platforms.
+Welcome to this hands-on workshop where you’ll discover the k0s family which addresses the challenges of managing multi-cluster Kubernetes. At the foundation of this ecosystem is [k0s](https://k0sproject.io), a lightweight Kubernetes distribution, which power lies in the tools implemented around it. With [k0sctl](https://github.com/k0sproject/k0sctl), you can easily manage cluster lifecycles. [k0smotron](https://k0smotron.io) enables Kubernetes control planes to run inside Pods. And [k0rdent](https://k0rdent.io) provides the building blocks for Kubernetes-based internal developer platforms.
 
 ## Requirements
 
 In order to follow this workshop, you'll need to have the following items installed on your local machine.
 
-- [Multipass](https://multipass.run): Multipass is a very handy tool that allows to create Ubuntu virtual machine in a very easy way. It is available on macOS, Windows and Linux.
+- [Multipass](https://multipass.run): an handy tool that allows you to create Ubuntu virtual machine with ease. It is available on macOS, Windows and Linux.
 
-- [kubectl](https://kubernetes.io/docs/tasks/tools/#kubectl) the command line tool to communicate with a Kubernetes cluster
+- [kubectl](https://kubernetes.io/docs/tasks/tools/#kubectl): the command line tool to communicate with a Kubernetes cluster
 
-- [helm](https://helm.sh/docs/intro/install/) the command line tool to manage application in Kubernetes
+- [helm](https://helm.sh/docs/intro/install/): the command line tool to manage application in Kubernetes
 
-- [kind](https://kind.sigs.k8s.io/), an useful tool to run Kubernetes in containers
+- [kind](https://kind.sigs.k8s.io/): a useful tool to run Kubernetes in containers
 
 ## Workshop's layout
 
