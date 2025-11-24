@@ -191,7 +191,7 @@ service/kubernetes   ClusterIP   10.96.0.1        <none>        443/TCP        6
 service/nginx        NodePort    10.110.235.193   <none>        80:30000/TCP   6s
 ```
 
-Using `k0s-1` IP address (`192.168.64.22` in this example) and the NodePort 3000, we can access nginx.
+Using `k0s-1` IP address (`192.168.64.22` in this example) and the NodePort 30000, we can access nginx.
 
 ![nginx](./images/nginx.png)
 

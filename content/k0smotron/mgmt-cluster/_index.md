@@ -30,6 +30,10 @@ nodes:
     protocol: TCP
 ```
 
+{{< callout type="important">}}
+This configuration defines some port mappings in order to expose the API Servers of child clusters.
+{{< /callout >}}
+
 Next, create the cluster.
 
 ```bash

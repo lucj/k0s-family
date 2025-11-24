@@ -7,7 +7,7 @@ weight: 1
 
 k0s delivers a fully functional Kubernetes experience with:
 
-- **Certified Kubernetes**: Ships CIS-benchmarked Kubernetes 1.34
+- **Certified Kubernetes**: Ships CIS-benchmarked Kubernetes
 - **Cross-platform support**: Runs on x86-64, ARM64 and ARMv7 architectures
 - **Complete runtime stack**: Uses containerd, in-cluster etcd, and Kube-router networking
 - **Built-in observability**: Includes CoreDNS, Metrics Server, and HPA support
