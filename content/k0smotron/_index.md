@@ -9,7 +9,11 @@ title: k0smotron
 In this section, we'll first create a management cluster using [kind](https://kind.sigs.k8s.io/). Next, we'll create a child cluster which control plane is running as Pods in the management cluster. We'll then focus on [CAPI](https://github.com/kubernetes-sigs/cluster-api) to illustrate how k0smotron can be used as a CAPI provider.
 
 {{< callout type="important">}}
-Prerequisite: make sure you installed [kind](https://kind.sigs.k8s.io/) on your local machine.
+Make sure you installed the following components on your local machine:
+- [Docker](https://docs.docker.com/)
+- [kind](https://kind.sigs.k8s.io/) to run Kubernetes in containers
+- [Helm](https://helm.sh/docs/intro/install/)
+- [clusterctl](https://cluster-api.sigs.k8s.io/user/quick-start#install-clusterctl)
 {{< /callout >}}
 
 {{< nav-buttons 
