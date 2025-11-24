@@ -3,7 +3,7 @@ title: Child clusters
 weight: 2
 ---
 
-In this section, we'll create two clusters in the `standalone` mode (we'll explore the CAPI provider way of creating a cluster in a next section).
+In this section, we'll create two child clusters. We'll use k0smotron to manage the control planes of each one, and we'll run worker Nodes in Docker containers.
 
 ## Creating a first child cluster
 

@@ -3,7 +3,11 @@ title: Management cluster
 weight: 1
 ---
 
-In this step we'll create a management cluster, and use it to host the control planes of child clusters.
+In this step we'll create a management cluster, and install k0smotron inside it to host the control planes of child clusters.
+
+{{< callout type="info">}}
+In this first part, we'll install k0smotron in standalone mode, meaning it does not interact with Cluster API (CAPI) resources. We'll discuss CAPI in a next section.
+{{< /callout >}}
 
 ## Creating the cluster
 
