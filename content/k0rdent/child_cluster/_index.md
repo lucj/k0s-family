@@ -1,3 +1,8 @@
+---
+title: ''
+weight: 2
+---
+
 ## Creating a child cluster
 
 In this section, we'll create a child cluster using a template named `docker-hosted-cp-1-0-4`. This template uses:

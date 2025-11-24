@@ -1,10 +1,9 @@
 ---
-title: Management cluster
+title: ''
 weight: 1
 ---
 
-In this step we'll create a management cluster, that we'll use to host the workload clusters' control plane.
-
+In this step we'll create a management cluster. We'll use it next to host the control planes of child clusters.
 
 ## Creating the management cluster
 
