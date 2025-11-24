@@ -6,7 +6,7 @@ metadata:
 spec:
   clusterSelector:
     matchLabels:
-      helm.toolkit.fluxcd.io/name: docker-demo
+      env: demo
   serviceSpec:
     services:
       - name: argocd-demo-service

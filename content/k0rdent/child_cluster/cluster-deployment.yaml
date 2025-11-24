@@ -3,9 +3,11 @@ kind: ClusterDeployment
 metadata:
   name: docker-demo
   namespace: kcm-system
+  labels:
+      env: demo 
 spec:
   template: docker-hosted-cp-1-0-4
-  credential: docker-default           # must match metadata.name of the Credential above
+  credential: docker-default
   config:
     kubernetesVersion: v1.34.1-k0s.0
     controlPlane:
