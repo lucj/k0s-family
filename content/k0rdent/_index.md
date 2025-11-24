@@ -3,7 +3,7 @@ title: k0rdent
 weight: 4
 ---
 
-[k0rdent](https://github.com/k0rdent/kcm) is a Kubernetes cluster management platform that orchestrates the entire k0s ecosystem for multi-cluster lifecycle management. It provides policy-driven automation and governance for managing multiple clusters at scale.
+[k0rdent](https://github.com/k0rdent/kcm) is an open-source project allowing you to manage multiple clusters at scale.
 
 k0rdent:
 - provides templates for consistent cluster provisioning
@@ -14,8 +14,10 @@ k0rdent:
 
 ![Overview](./overview.svg)
 
+In this section, we'll first create a management cluster using [kind](https://kind.sigs.k8s.io/). Then, we'll use k0rdent to create a child cluster and install [Argo CD](https://argo-cd.readthedocs.io/en/stable) inside it.
+
 {{< nav-buttons 
     next_link="./mgmt_cluster"
-    next_text="Management cluster"
+    next_text="Creating a management cluster"
 >}}
 

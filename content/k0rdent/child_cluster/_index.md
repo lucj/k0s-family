@@ -175,5 +175,5 @@ We've only scratched the surface of k0rdent, check the [documentation](https://d
 
 {{< nav-buttons 
     prev_link="../mgmt_cluster"
-    prev_text="Management cluster"
+    prev_text="Creating a management cluster"
 >}}

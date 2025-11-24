@@ -154,5 +154,5 @@ spec:
 
 {{< nav-buttons 
     next_link="../child_cluster"
-    next_text="Child cluster"
+    next_text="Creating a child cluster"
 >}}
