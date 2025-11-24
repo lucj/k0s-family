@@ -5,11 +5,11 @@ weight: 3
 
 ## What is CAPI
 
-Cluster API (a.k.a. CAPI) is defined as a Kubernetes sub-project focused on providing declarative APIs and tooling to simplify provisioning, upgrading, and operating multiple Kubernetes clusters.
+[Cluster API](https://github.com/kubernetes-sigs/cluster-api) (a.k.a. CAPI) is defined as a Kubernetes sub-project focused on providing declarative APIs and tooling to simplify provisioning, upgrading, and operating multiple Kubernetes clusters.
 
 ## k0smotron as a CAPI provider
 
-k0smotron can act as a CAPI provider:
+k0smotron can act as a CAPI provider in 3 ways:
 
 - control-plane
 - bootstrap
@@ -21,19 +21,9 @@ This example demonstrates how k0smotron can be used with CAPD (Cluster API Provi
 CAPD should only be used for development purposes and not for production environments.
 {{< /callout >}}
 
-## Preparations
-
-Ensure you have the following components installed:
-
-- [Docker](https://docs.docker.com/)
-- [kubectl](https://kubernetes.io/docs/tasks/tools/#kubectl)
-- [kind](https://kind.sigs.k8s.io)
-- [clusterctl](https://cluster-api.sigs.k8s.io/user/quick-start#install-clusterctl)
-- [Helm](https://helm.sh/docs/intro/install/)
-
 ## Creating the management cluster
 
-We'll run the management cluster in Docker container using [kind](https://kind.sigs.k8s.io) with the following configuration.
+We'll run the management cluster in Docker container using [kind](https://kind.sigs.k8s.io) once again. First, create the following configuration file.
 
 ```yaml {filename="config.yaml"}
 kind: Cluster
@@ -50,7 +40,7 @@ nodes:
       hostPort: 30443
 ```
 
-Create the cluster.
+Next, create the cluster.
 
 ```bash
 kind create cluster --name mgmt --config config.yaml
@@ -77,6 +67,8 @@ clusterctl init --control-plane k0sproject-k0smotron --bootstrap k0sproject-k0sm
 ## Creating a child cluster
 
 Once all the controllers are up and running, you can apply the cluster manifests containing the specifications of the cluster you want to provision. Here is an example:
+
+{{% details title="Cluster specification" closed="true" %}}
 
 ```yaml {filename="docker-demo.yaml"}
 apiVersion: cluster.x-k8s.io/v1beta2
@@ -174,6 +166,8 @@ spec:
       # More details of the worker configuration can be set here
 ```
 
+{{% /details %}}
+
 Create these resources, it only takes a few tens of seconds for the child cluster to the created. 
 
 ```bash
@@ -201,11 +195,9 @@ clusterctl get kubeconfig docker-demo > docker-demo.conf
 
 Because we are using the CAPD provider we need to change the `server` property of this kubeconfig so that we can access the cluster from our local machine.
 
-Change `server: https://172.19.0.2:30443` to `https://localhost:30443`.
-
-{{< callout type="info">}}
-The IP address in your server property may be different from the one above.
-{{< /callout >}}
+```bash
+kubectl config set-cluster docker-demo --server=https://localhost:30443 --kubeconfig=$PWD/docker-demo.conf
+```
 
 Verify you can access the child cluster.
 
@@ -234,6 +226,8 @@ kind delete clusters mgmt
 ```
 
 {{< nav-buttons 
-    prev_link="../workload-clusters"
-    prev_text="Workload clusters"
+    prev_link="../child-clusters"
+    prev_text="Creating a child cluster"
+    next_link="../../k0rdent"
+    next_text="Introduction to k0rdent"
 >}}
