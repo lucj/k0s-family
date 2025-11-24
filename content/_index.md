@@ -24,6 +24,8 @@ In order to follow this workshop, you'll need to have the following items instal
 
 - [kind](https://kind.sigs.k8s.io/): a useful tool to run Kubernetes in containers
 
+- [clusterctl](https://cluster-api.sigs.k8s.io/user/quick-start#install-clusterctl): a CLI tool to manage clusters created with Cluster API
+
 ## Workshop's layout
 
 To get the most out of the workshop, please follow the section below in order, starting with the [introduction to k0s](./k0s).
