@@ -2,11 +2,9 @@
 title: k0sctl
 ---
 
-[k0sctl](https://github.com/k0sproject/k0sctl) is defined as "A command-line bootstrapping and management tool for k0s zero friction kubernetes clusters". In this section, you'll use `k0sctl` to create a `k0s` cluster on Multipass VMs.
+[k0sctl](https://github.com/k0sproject/k0sctl) is defined as a command-line bootstrapping and management tool for k0s kubernetes clusters. In this section, you'll use `k0sctl` to create a `k0s` cluster on Multipass VMs and perform some day 2 operations on it.
  
-Before moving to the cluster creation step, please install `k0sctl` on your local machine following the [GitHub documentation](https://github.com/k0sproject/k0sctl?tab=readme-ov-file#installation).
-
-Once this is done, you can check all the available commands running *k0sctl* without any parameters:
+Before moving to the cluster creation step, [install k0sctl](https://github.com/k0sproject/k0sctl?tab=readme-ov-file#installation) on your local machine. Then, check all the available commands running `k0sctl` without any parameters.
 
 ```bash
 $ k0sctl
