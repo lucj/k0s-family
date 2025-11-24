@@ -6,7 +6,9 @@ title: k0smotron
 
 ![Overview](./overview.png)
  
+In this section, we'll first create a management cluster using [kind](https://kind.sigs.k8s.io/). Next, we'll create a child cluster which control plane is running as Pods in the management cluster. We'll then focus on [CAPI](https://github.com/kubernetes-sigs/cluster-api) to illustrate how k0smotron can be used as a CAPI provider.
+
 {{< nav-buttons 
     next_link="./mgmt-cluster"
-    next_text="Management cluster"
+    next_text="Creating a management cluster"
 >}}
