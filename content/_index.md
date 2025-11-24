@@ -2,11 +2,15 @@
 title: 'Discover the k0s family'
 ---
 
-{{< callout type="important">}}
+{{< callout type="warning">}}
 This content is a work in progress, it's not fully ready yet.
+{{< /callout >}}
 
+{{< callout type="important">}}
 Disclaimer: this content is created for educational purposes, it's independent of the [k0s](https://k0sproject.io) CNCF project.
 {{< /callout >}}
+
+
 
 <br/>
 
