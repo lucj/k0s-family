@@ -3,14 +3,11 @@ title: Management cluster
 weight: 1
 ---
 
-In this step we'll create a management cluster, that we'll use to host the workload clusters' control plane.
+In this step we'll create a management cluster, and use it to host the control planes of child clusters.
 
 ## Creating the cluster
 
-First, we install [kind](https://kind.sigs.k8s.io/), an handy tool that allows creating Kubernetes clusters in containers.
-
-Next, we define a configuration file for this cluster.
-
+First, define the kind's configuration file for our management cluster.
 
 ```yaml {filename="config.yaml"}
 kind: Cluster
@@ -29,19 +26,19 @@ nodes:
     protocol: TCP
 ```
 
-Next, we create the cluster.
+Next, create the cluster.
 
 ```bash
 kind create cluster --name mgmt --config config.yaml
 ```
 
-Then, we switch the Kubernetes context to access our newly created cluster.
+Then, switch the Kubernetes context to access our newly created cluster.
 
 ```bash
 kubectl config use-context kind-mgmt
 ```
 
-Our onde-node cluster is up and running.
+Your one-node management cluster is up and running.
 
 ```bash
 $ kubectl get no
@@ -51,7 +48,7 @@ mgmt-control-plane   Ready    control-plane   3m36s   v1.34.0
 
 ## Installing cert-manager
 
-Before installing `k0smotron`, we need to install cert-manager.
+Before installing `k0smotron`, we need to install cert-manager. Use the following command to install it using Helm.
 
 ```bash
 helm repo add jetstack https://charts.jetstack.io --force-update
@@ -66,13 +63,15 @@ helm install \
 
 ## Installing k0smotron
 
-We can now install `k0smotron`.
+Install `k0smotron` as follows.
 
 ```bash
 kubectl apply --server-side=true -f https://docs.k0smotron.io/stable/install.yaml
 ```
 
+The management cluster is now ready to host control plane of child cluster. This is the topic of the next section.
+
 {{< nav-buttons 
-    next_link="../workload-clusters"
-    next_text="Workload clusters"
+    next_link="../child-cluster"
+    next_text="Creating a child cluster"
 >}}
