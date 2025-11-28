@@ -28,7 +28,7 @@ stringData:
   placeholder: "none"
 ```
 
-Next, create a `Credentials` pecification, which references the `Secret` created above.
+Next, create a `Credentials` specification, which references the `Secret` created above.
 
 ```yaml{filename="credentials.yaml"}
 apiVersion: k0rdent.mirantis.com/v1beta1
