@@ -13,7 +13,7 @@ Note: if you have access to a k0s cluster created differently, you will just hav
 
 ## Get the default kubeconfig
 
-First you need to get the *kubeconfig* file automatically generated during the creation of the cluster (this file provides the *cluster-admin* access to the cluster), save this file into *admin.kubeconfig* and make sure to replace *localhost* with the IP address of the node:
+First you need to get the *kubeconfig* file that was automatically generated during cluster creation. This file provides the *cluster-admin* access to the cluster. Save this file ad *admin.kubeconfig*, then and make sure to replace *localhost* with the IP address of the node.
 
 ```
 multipass exec node-1 -- sudo cat /var/lib/k0s/pki/admin.conf > admin.kubeconfig
@@ -28,7 +28,9 @@ In the next step you will create a new kubeconfig file that will be provided to 
 
 k0s' *kubeconfig* subcommand allows to create a kubeconfig for an additional user/group.
 
-:fire: In Kubernetes, users and groups are managed by an administrator outside the cluster, that means there’s no users nor groups resources in K8s.
+{{< callout type="info" >}}
+In Kubernetes, users and groups are managed by an administrator outside the cluster. This means there are no user or group resources in the Kubernetes API.
+{{< /callout >}}
 
 Let's consider that within your company there is a team named *development* and a user named *dave* within that team.
 Use the following command to create a new kubeconfig for that particular user:
@@ -37,7 +39,9 @@ Use the following command to create a new kubeconfig for that particular user:
 $ multipass exec node-1 -- sudo k0s kubeconfig create dave --groups development > dave.kubeconfig
 ```
 
-:fire: if you use a multi-nodes cluster, make sure to run the above command from a controller node. Indeed, the worker Nodes do not have the key required to approve a Certificate Signin Request.
+{{< callout type="warning" >}}
+Important: if you use a multi-node cluster, make sure to run the above command from a controller node. Worker Nodes do not have the key required to approve a Certificate Signin Request.
+{{< /callout >}}
 
 To get a better understanding, extract the client’s certificate from this kubeconfig file and decode it from its base64 representation:
 
@@ -153,9 +157,9 @@ roleRef:
  apiGroup: rbac.authorization.k8s.io
 ```
 
-Create those resources (still using *admin.kubeconfig* as the *dave.kubeconfig* does not allow to create RBAC related ressources, obviously :) ).
+Create those resources (still using *admin.kubeconfig* (the *dave.kubeconfig* doesn't have permissions to create RBAC-related resources).
 
-```
+```bash
 kubectl apply -f role.yaml -f role-binding.yaml
 role.rbac.authorization.k8s.io/dave created
 rolebinding.rbac.authorization.k8s.io/dave created

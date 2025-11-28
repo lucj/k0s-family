@@ -8,7 +8,13 @@ This content is a work in progress, it's not fully ready yet. It was created for
 
 <br/>
 
-Welcome to this hands-on workshop where you’ll discover the k0s family which addresses the challenges of managing multi-cluster Kubernetes. At the foundation of this ecosystem is [k0s](https://k0sproject.io), a lightweight Kubernetes distribution. With [k0sctl](https://github.com/k0sproject/k0sctl), you can easily manage k0s cluster lifecycles. [k0smotron](https://k0smotron.io) enables Kubernetes control planes to run inside Pods. And [k0rdent](https://k0rdent.io) provides the building blocks for Kubernetes-based internal developer platforms.
+Welcome to this hands-on workshop where you’ll discover the k0s family. This ecosystem addresses the challenges of managing multi-cluster Kubernetes environemnts.
+
+The k0s family includes:
+- [k0s](https://k0sproject.io): a lightweight Kubernetes distribution that forms the foundation
+- [k0sctl](https://github.com/k0sproject/k0sctl): easily manages k0s cluster lifecycles
+- [k0smotron](https://k0smotron.io): enables Kubernetes control planes to run inside Pods
+- [k0rdent](https://k0rdent.io): provides the building blocks for Kubernetes-based internal developer platforms
 
 ## Requirements
 

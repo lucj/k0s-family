@@ -3,7 +3,7 @@ title: Configuration
 weight: 2
 ---
 
-In this part, you will change the configuration of our one-node cluster, using Cilium CNI instead of the default KubeRouter.
+In this part, we will change the configuration of our one-node cluster, using Cilium CNI instead of the default KubeRouter.
 
 ## Default k0s configuration
 
@@ -149,7 +149,7 @@ sudo systemctl daemon-reload
 sudo systemctl restart k0scontroller
 ```
 
-In a next section, we'll get one step further updating the configuration to change the default CNI.
+In the next section, we'll get one step further updating the configuration to change the default CNI.
 
 {{< nav-buttons 
     prev_link="../single-node"

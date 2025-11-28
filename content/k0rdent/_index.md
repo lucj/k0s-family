@@ -10,7 +10,7 @@ k0rdent:
 - integrates with multiple infrastructure providers (AWS, Azure, GCP, bare metal)
 - enables self-service cluster requests through GitOps
 - automates day-2 operations (upgrades, scaling, compliance)
-- offers multi-tenancy and RBAC controls
+- offers multi-tenancy and RBAC (Role-Based Access Control) controls
 
 ![Overview](./overview.svg)
 

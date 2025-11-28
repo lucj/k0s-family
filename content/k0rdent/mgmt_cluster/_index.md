@@ -60,7 +60,8 @@ helm install kcm oci://ghcr.io/k0rdent/kcm/charts/kcm --version 1.5.0 -n kcm-sys
 ```
 
 {{< callout type="info">}}
-It create several CRDs used for the management of child clusters:
+It create several CRDs (Custom Resource Definitions are extensions that allow Kubernetes to manage custom
+  objects) used for the management of child clusters:
 
 - Management
 - Release

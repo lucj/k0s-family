@@ -104,7 +104,7 @@ NAME   STATUS   ROLES           AGE   VERSION
 k0s-1  Ready    control-plane   11m   v1.33.4+k0s
 ```
 
-Usually do not SSH into a cluster's Node to run kubectl commands, but run these commands from an admin machine. In order to do so, run the following command from your local machine. It retrieves the kubeconfig file generated during the cluster creation (`/var/lib/k0s/pki/admin.conf`) and saves it in a local file named `k0s.kubeconfig`.
+You usually should not SSH into a cluster's nodes to run kubectl commands. Instead, run these commands from an admin machine. In order to do so, run the following command from your local machine. It retrieves the kubeconfig file generated during the cluster creation (`/var/lib/k0s/pki/admin.conf`) and saves it in a local file named `k0s.kubeconfig`.
 
 ```bash
 multipass exec k0s-1 -- sudo cat /var/lib/k0s/pki/admin.conf > k0s.kubeconfig
@@ -133,7 +133,7 @@ k0s-1  Ready    control-plane   16m   v1.33.4+k0s
 
 ## Testing the whole thing
 
-Let's now run a Deployment based on the `nginx` image and expose it though a NodePort Service.
+Let's now run a Deployment based on the `nginx` image and expose it though a NodePort Service (which makes the service accessible from outside the cluster using a specific port).
 
 ```bash
 cat<<EOF | kubectl apply -f -
