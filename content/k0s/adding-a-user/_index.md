@@ -9,7 +9,9 @@ In this tutorial, you will give a new user access to your cluster.
 
 To illustrate this example, make sure to have access to a single node cluster created following [this previous tutorial](./single_node_multipass.md). 
 
-Note: if you have access to a k0s cluster created differently, you will just have to adapt the commands to your context.
+{{< callout type="warning" >}}
+If you created your k0s cluster differently, you'll need to adapt the commands to your context.
+{{< /callout >}}
 
 ## Get the default kubeconfig
 
