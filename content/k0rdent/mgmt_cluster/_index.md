@@ -112,6 +112,8 @@ kcm-regional-1-0-5                                 true
 projectsveltos-1-1-1                               true
 ```
 
+Next, you can check the `ClusterTemplates`, each one packages a full cluster (control plane and worker Nodes) specification.
+
 ```bash
 $ kubectl get clustertemplate -n kcm-system
 NAME                             VALID
@@ -133,23 +135,7 @@ vsphere-hosted-cp-1-0-15         true
 vsphere-standalone-cp-1-0-15     true
 ```
 
-
-```bash
-apiVersion: clusters.k0rdent.io/v1alpha1
-kind: Cluster
-metadata:
-  name: demo-child
-spec:
-  class: k0smotron-docker # provided out of the box by k0rdent
-  parameters:
-    kubernetesVersion: "1.34.1"
-    controlPlane:
-      replicas: 1
-    workers:
-      machineDeployments:
-      - name: default
-        replicas: 2
-```
+In the next section, we'll create a child cluster locally, using the template `docker-hosted-cp-1-0-4` from the list above.
 
 {{< nav-buttons 
     next_link="../child_cluster"
