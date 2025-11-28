@@ -95,7 +95,7 @@ kubectl config set-cluster cluster-2 --server=https://localhost:30444
 Then, verify you can list the Pods of this new child cluster.
 
 ```bash
-$ kubeclt get po -A
+$ kubectl get po -A
 NAMESPACE     NAME                              READY   STATUS    RESTARTS   AGE
 kube-system   coredns-7656c59669-2c2hm          0/1     Pending   0          3m31s
 kube-system   metrics-server-67bc669cf4-rfqvp   0/1     Pending   0          3m24s

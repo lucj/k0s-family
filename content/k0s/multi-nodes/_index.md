@@ -134,7 +134,7 @@ You can now delete the VMs used in this section.
 multipass delete -p k0s-1 k0s-2 k0s-3
 ```
 
-In the next section, you will use `k0sctl`, a k0s's companion tool that simplifies the management of multi-node clusters.
+In the next section, you will use `k0sctl`, a k0s's companion tool that simplifies the management of multi-nodes clusters.
 
 
 {{< nav-buttons 

@@ -37,7 +37,7 @@ Use the following command to create a new kubeconfig for that particular user:
 $ multipass exec node-1 -- sudo k0s kubeconfig create dave --groups development > dave.kubeconfig
 ```
 
-:fire: if you use a multi-node cluster, make sure to run the above command from a controller node. Indeed, the worker Nodes do not have the key required to approve a Certificate Signin Request.
+:fire: if you use a multi-nodes cluster, make sure to run the above command from a controller node. Indeed, the worker Nodes do not have the key required to approve a Certificate Signin Request.
 
 To get a better understanding, extract the client’s certificate from this kubeconfig file and decode it from its base64 representation:
 
@@ -170,7 +170,7 @@ export KUBECONFIG=$PWD/dave.kubeconfig
 kubectl -n development run db --image=mongo:4.4
 ```
 
-You should no get the following result:
+You should now get the following result:
 
 ```
 pod/db created
