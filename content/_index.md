@@ -59,10 +59,10 @@ To get the most out of the workshop, please follow the section below in order, s
 
 <br/>
 
-{{< callout type="info">}}
-We use different environments to showcase each tool's strengths:
+{{< callout >}}
+We use different environments to better showcase each tool.
 
-- **k0s & k0sctl**: Multipass VMs (traditional deployment)
-- **k0smotron & k0rdent**: kind + Docker (cloud-native patterns)
+- **k0s & k0sctl**: Multipass VMs
+- **k0smotron & k0rdent**: kind + Docker
 {{< /callout >}}
 
