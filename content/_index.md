@@ -34,7 +34,7 @@ In order to follow this workshop, make sure to install the following components 
 
 To get the most out of the workshop, please follow the section below in order, starting with the [introduction to k0s](./k0s).
 
-{{< cards >}}
+{{< cards cols="2" >}}
     {{< card    link="./k0s" 
                 title="k0s" 
                 subtitle="Discover k0s, a lightweight Kubernetes distribution" 
