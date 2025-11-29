@@ -3,7 +3,7 @@ title: 'Discover the k0s family'
 ---
 
 {{< callout type="warning">}}
-This content is a work in progress, it's not fully ready yet. It was created for educational purposes, and is independent of the [k0s](https://k0sproject.io) CNCF project.
+This content is a work in progress. It was created for educational purposes, and is independent of the [k0s](https://k0sproject.io) CNCF project.
 {{< /callout >}}
 
 <br/>
